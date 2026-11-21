@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cliníca Veterinária e Pet Shop — Agenda</title>
+<style>
+  :root{--marrom:#7A5B3A;--marrom-esc:#5E4429;--creme:#F7F3EC;--areia:#F3E9DC;
+        --linha:#D8CDBD;--verde:#2E7D5B;--texto:#2C2218;--mudo:#7A6A58;--raio:14px;
+        font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--creme);color:var(--texto);line-height:1.5}
+  header{background:var(--marrom);color:#fff;padding:18px 20px;display:flex;align-items:center;gap:12px}
+  .logo{width:38px;height:38px;border-radius:50%;background:var(--areia);color:var(--marrom-esc);
+        display:grid;place-items:center;font-weight:800;font-size:15px}
+  header h1{font-size:17px;margin:0;font-weight:700}
+  header p{margin:2px 0 0;font-size:12px;opacity:.85}
+  main{max-width:720px;margin:0 auto;padding:22px 20px 60px}
+  .card{background:#fff;border:1px solid var(--linha);border-radius:var(--raio);padding:18px;margin-bottom:16px}
+  h2{font-size:15px;margin:0 0 4px}
+  .sub{font-size:13px;color:var(--mudo);margin:0 0 14px}
+  .servico{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--linha);
+           border-radius:10px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:.15s}
+  .servico:hover{border-color:var(--marrom);background:var(--creme)}
+  .servico[aria-selected="true"]{border-color:var(--verde);background:#F2F8F5;box-shadow:0 0 0 1px var(--verde) inset}
+  .servico strong{font-size:14px;display:block}
+  .servico small{color:var(--mudo);font-size:12px}
+  .preco{font-weight:700;font-size:14px;white-space:nowrap}
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(88px,1fr))}
+  .dia{border:1px solid var(--linha);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;font-size:12px}
+  .dia b{display:block;font-size:16px}
+  .dia[aria-selected="true"]{background:var(--verde);color:#fff;border-color:var(--verde)}
+  .horas{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .hora{border:1px solid var(--linha);border-radius:999px;padding:7px 14px;font-size:13px;cursor:pointer}
+  .hora[aria-selected="true"]{background:var(--verde);color:#fff;border-color:var(--verde)}
+  .resumo{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--linha)}
+  .resumo:last-of-type{border:0}
+  .total{font-weight:700}
+  button.cta{width:100%;margin-top:14px;background:var(--verde);color:#fff;border:0;border-radius:10px;
+             padding:15px;font-size:15px;font-weight:700;cursor:pointer}
+  button.cta:hover{filter:brightness(1.08)}
+  button.cta:disabled{background:#B9C7C0;cursor:not-allowed}
+  .nota{font-size:11.5px;color:var(--mudo);margin-top:10px;text-align:center}
+  .pix{display:none} .pix.on{display:block}
+  .qrcode{width:132px;height:132px;margin:14px auto 10px;
+    background:repeating-linear-gradient(90deg,#2C2218 0 6px,#fff 6px 12px),
+               repeating-linear-gradient(0deg,#2C2218 0 6px,#fff 6px 12px);
+    background-blend-mode:multiply;border:8px solid #fff;box-shadow:0 0 0 1px var(--linha)}
+  .ok{text-align:center} .ok .selo{width:56px;height:56px;border-radius:50%;background:#E7F3EC;color:var(--verde);
+    display:grid;place-items:center;font-size:28px;margin:0 auto 10px}
+  .selo-txt{font-size:12px;color:var(--mudo);letter-spacing:.04em;text-transform:uppercase;margin:0 0 16px}
+  .quero{text-align:center}
+  .quero a{display:inline-block;margin-top:6px;background:var(--marrom);color:#fff;text-decoration:none;
+            padding:13px 18px;border-radius:10px;font-weight:700;font-size:14px}
+  footer{text-align:center;font-size:11.5px;color:var(--mudo);padding:10px 20px 40px}
+  footer a{color:var(--marrom)}
+  @media(max-width:480px){main{padding:16px 14px 50px}.card{padding:15px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">CV</div>
+  <div><h1>Cliníca Veterinária e Pet Shop</h1><p>Banho e tosa · consulta · vacina</p></div>
+</header>
+
+<main>
+  <p class="selo-txt">Demonstração — dados de exemplo</p>
+
+  <div class="card">
+    <h2>Escolha o serviço</h2>
+    <p class="sub">O horário só fica reservado depois do sinal.</p>
+
+    <div class="servico" role="button" tabindex="0" aria-selected="true" data-serv="Banho e tosa — porte médio" data-preco="95">
+      <span><strong>Banho e tosa — porte médio</strong><small>1h30 · inclui secagem e corte de unhas</small></span>
+      <span class="preco">R$ 95</span>
+    </div>
+    <div class="servico" role="button" tabindex="0" aria-selected="false" data-serv="Banho simples" data-preco="60">
+      <span><strong>Banho simples</strong><small>50min · shampoo hipoalergênico</small></span>
+      <span class="preco">R$ 60</span>
+    </div>
+    <div class="servico" role="button" tabindex="0" aria-selected="false" data-serv="Consulta veterinária" data-preco="140">
+      <span><strong>Consulta veterinária</strong><small>40min · com avaliação clínica</small></span>
+      <span class="preco">R$ 140</span>
+    </div>
+
+    <h2 style="margin-top:20px">Dia</h2>
+    <div class="grid" id="dias"></div>
+    <div class="horas" id="horas"></div>
+  </div>
+
+  <div class="card">
+    <h2>Resumo</h2>
+    <div class="resumo"><span>Serviço</span><span id="r-serv">Banho e tosa — porte médio</span></div>
+    <div class="resumo"><span>Quando</span><span id="r-quando">—</span></div>
+    <div class="resumo"><span>Valor do serviço</span><span id="r-preco">R$ 95,00</span></div>
+    <div class="resumo total"><span>Sinal agora (30%)</span><span id="r-sinal">R$ 28,50</span></div>
+    <div class="resumo"><span>Restante no dia</span><span id="r-resto">R$ 66,50</span></div>
+    <button class="cta" id="btn" disabled>Reservar com sinal no Pix</button>
+    <p class="nota">Política: cancelamento até 12h antes devolve o sinal.</p>
+  </div>
+
+  <div class="card pix" id="pixbox">
+    <h2>Pague o sinal</h2>
+    <p class="sub">Pix copia e cola — a vaga fica presa por 15 minutos.</p>
+    <div class="qrcode" aria-hidden="true"></div>
+    <div style="font-family:ui-monospace,monospace;font-size:11px;word-break:break-all;background:var(--creme);
+                border:1px dashed var(--linha);border-radius:8px;padding:10px;color:var(--mudo)">
+      00020126580014BR.GOV.BCB.PIX0136demo-clinica-veterinaria-e-pet-shop-0001
+    </div>
+    <button class="cta" id="btn-pago" style="background:var(--marrom)">Simular pagamento aprovado</button>
+  </div>
+
+  <div class="card ok" id="okbox" style="display:none">
+    <div class="selo">✓</div>
+    <h2>Vaga reservada</h2>
+    <p class="sub" id="ok-txt">—</p>
+    <p class="nota">Lembrete automático 24h antes. Se não puder vir, cancele até 12h antes pelo mesmo link.</p>
+  </div>
+
+  <div class="card quero">
+    <h2>Quero essa agenda na minha loja</h2>
+    <p class="sub">30 dias de teste sem custo. Configuramos com os seus preços e horários.</p>
+    <a href="mailto:samuel@seu.pet?subject=Quero%20a%20agenda%20com%20sinal%20na%20minha%20loja&body=Loja%3A%20Cliníca%20Veterinária%20e%20Pet%20Shop%0A%0AQuero%20testar%20os%2030%20dias.">
+      Falar com o Samuel
+    </a>
+    <p class="nota">O sinal cai direto na sua conta. Sem taxa por agendamento.</p>
+  </div>
+</main>
+
+<footer>
+  Demonstração feita por <a href="https://skills.seu.pet?utm_source=demo&amp;utm_medium=footer&amp;utm_campaign=clinica-veterinaria-e-pet-shop">seu.pet</a>
+  · Brasília · DF
+</footer>
+
+<script>
+  const dias = [], base = new Date();
+  for (let i = 1; i <= 7; i++) dias.push(new Date(base.getTime() + i * 86400000));
+  const fmtDia = d => d.toLocaleDateString('pt-BR', {weekday:'short'}).replace('.', '');
+  const fmtNum = d => String(d.getDate()).padStart(2, '0');
+  let servico = 'Banho e tosa — porte médio', preco = 95, dia = null, hora = null;
+  const elDias = document.getElementById('dias');
+  dias.forEach(d => {
+    const b = document.createElement('div');
+    b.className = 'dia'; b.tabIndex = 0; b.setAttribute('role','button'); b.setAttribute('aria-selected','false');
+    b.innerHTML = `<span>${fmtDia(d)}</span><b>${fmtNum(d)}</b>`;
+    b.onclick = () => {
+      dia = d.toLocaleDateString('pt-BR');
+      elDias.querySelectorAll('.dia').forEach(x => x.setAttribute('aria-selected','false'));
+      b.setAttribute('aria-selected','true'); renderHoras(); atualizar();
+    };
+    elDias.appendChild(b);
+  });
+  const elHoras = document.getElementById('horas');
+  function renderHoras() {
+    elHoras.innerHTML = '';
+    ['09:00','10:30','13:00','14:30','16:00'].forEach(h => {
+      const b = document.createElement('div');
+      b.className = 'hora'; b.textContent = h; b.tabIndex = 0;
+      b.setAttribute('role','button'); b.setAttribute('aria-selected','false');
+      b.onclick = () => {
+        hora = h;
+        elHoras.querySelectorAll('.hora').forEach(x => x.setAttribute('aria-selected','false'));
+        b.setAttribute('aria-selected','true'); atualizar();
+      };
+      elHoras.appendChild(b);
+    });
+  }
+  document.querySelectorAll('.servico').forEach(s => {
+    const escolher = () => {
+      document.querySelectorAll('.servico').forEach(x => x.setAttribute('aria-selected','false'));
+      s.setAttribute('aria-selected','true');
+      servico = s.dataset.serv; preco = Number(s.dataset.preco);
+      document.getElementById('r-serv').textContent = servico;
+      document.getElementById('r-preco').textContent = brl(preco);
+      atualizar();
+    };
+    s.onclick = escolher;
+    s.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') escolher(); };
+  });
+  const brl = v => 'R$ ' + v.toFixed(2).replace('.', ',');
+  function atualizar() {
+    const sinal = preco * 0.3;
+    document.getElementById('r-sinal').textContent = brl(sinal);
+    document.getElementById('r-resto').textContent = brl(preco - sinal);
+    document.getElementById('r-quando').textContent = dia && hora ? `${dia} às ${hora}` : '—';
+    document.getElementById('btn').disabled = !(dia && hora);
+  }
+  document.getElementById('btn').onclick = () => {
+    document.getElementById('pixbox').classList.add('on');
+    document.getElementById('btn').textContent = 'Aguardando pagamento…';
+    document.getElementById('pixbox').scrollIntoView({behavior:'smooth', block:'center'});
+  };
+  document.getElementById('btn-pago').onclick = () => {
+    document.getElementById('pixbox').classList.remove('on');
+    document.getElementById('okbox').style.display = 'block';
+    document.getElementById('ok-txt').textContent =
+      `${servico} · ${dia} às ${hora} · sinal pago. O restante é no balcão.`;
+    document.getElementById('okbox').scrollIntoView({behavior:'smooth', block:'center'});
+  };
+</script>
+</body>
+</html>
